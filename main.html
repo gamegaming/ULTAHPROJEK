@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Main</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    audio {
+      display: none;
+    }
+
+    /* Overlay tombol */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6); /* agak gelap transparan */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #playBtn {
+      padding: 14px 30px;
+      font-size: 20px;
+      background: linear-gradient(135deg, #ff6f61, #ff4081);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    #playBtn:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #ff4081, #ff6f61);
+    }
+  </style>
+</head>
+<body>
+  <!-- Overlay dengan tombol -->
+  <div id="overlay">
+    <button id="playBtn">▶ Klik untuk mulai musik</button>
+  </div>
+
+  <!-- Musik -->
+  <audio id="bg-music" loop>
+    <source src="Iframe Feby Putri - Halu _ Lirik Lagu [s9fhbsg43mI].mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Iframe -->
+  <iframe id="contentFrame" src="Untitled-1.html"></iframe>
+
+  <script>
+    const music = document.getElementById("bg-music");
+    const btn = document.getElementById("playBtn");
+    const overlay = document.getElementById("overlay");
+
+    btn.addEventListener("click", () => {
+      music.play();
+      overlay.style.display = "none"; // hilangkan overlay + tombol
+    });
+
+    window.addEventListener("message", (event) => {
+      if (event.data === "nextPage") {
+        document.getElementById("contentFrame").src = "kata-kata.html";
+      }
+    });
+  </script>
+</body>
+</html>
